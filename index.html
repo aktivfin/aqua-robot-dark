@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Роботизированная автомойка в Перми</title>
+  <meta name='description' content='Современная роботизированная автомойка в Перми. Быстрая, технологичная и качественная мойка для вашего автомобиля. ул. Революции, 13.'>
+  <link rel='preconnect' href='https://fonts.googleapis.com'>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap'>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg-2: #0f172a;
+      --surface: rgba(255, 255, 255, 0.04);
+      --surface-hover: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f0f0fa;
+      --muted: #8b9bb4;
+      --red: #e63946;
+      --red-bright: #ff3b4a;
+      --blue: #0066ff;
+      --blue-bright: #0095ff;
+      --gradient: linear-gradient(135deg, var(--red-bright), var(--blue-bright));
+      --font-display: 'Chakra Petch', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 64px;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--red-bright);
+      font-size: 12px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-weight: 300;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      padding: 16px 32px;
+      border: 0;
+      border-radius: 0;
+      cursor: pointer;
+      transition: transform .3s, box-shadow .3s, background .3s, border-color .3s;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--blue-bright), var(--red-bright));
+      opacity: 0;
+      transition: opacity .4s;
+      z-index: 0;
+    }
+
+    .btn-primary span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255, 59, 74, 0.25), 0 8px 24px rgba(0, 149, 255, 0.2);
+    }
+
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(240, 240, 250, 0.2);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(240, 240, 250, 0.08);
+      border-color: rgba(240, 240, 250, 0.4);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .4s, box-shadow .4s, border-color .4s;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      color: var(--blue-bright);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: background .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.scrolled {
+      background: rgba(10, 14, 26, 0.85);
+      border-color: var(--border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient);
+      display: grid;
+      place-items: center;
+    }
+
+    .logo-mark svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color .3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gradient);
+      transition: width .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(0, 149, 255, 0.12), transparent 45%),
+        radial-gradient(circle at 20% 90%, rgba(255, 59, 74, 0.1), transparent 45%),
+        var(--bg);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      z-index: 0;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .orb-red {
+      width: 50vw;
+      height: 50vw;
+      background: var(--red-bright);
+      bottom: -20%;
+      left: -10%;
+    }
+
+    .orb-blue {
+      width: 40vw;
+      height: 40vw;
+      background: var(--blue-bright);
+      top: -10%;
+      right: -10%;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+      mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-fx {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      will-change: transform;
+    }
+
+    .brush {
+      fill: url(#brushGrad);
+      opacity: 0.1;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: brushSweep 4s ease-in-out infinite alternate;
+    }
+
+    .bubble {
+      fill: var(--blue-bright);
+      opacity: 0.35;
+      animation: rise 9s linear infinite;
+    }
+
+    @keyframes brushSweep {
+      from { transform: translateX(-8vw); }
+      to { transform: translateX(8vw); }
+    }
+
+    @keyframes rise {
+      from { transform: translateY(110vh); opacity: 0; }
+      10% { opacity: 0.35; }
+      90% { opacity: 0.35; }
+      to { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--red-bright);
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-weight: 300;
+      font-size: clamp(38px, 6vw, 78px);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      max-width: 1000px;
+    }
+
+    .hero-title .accent {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: var(--muted);
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 300;
+      line-height: 1;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .8s cubic-bezier(0.16, 1, 0.3, 1), transform .8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Advantages */
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .advantage-card .icon {
+      margin-bottom: 24px;
+    }
+
+    .advantage-card h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .advantage-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .pricing-card {
+      padding: 40px 32px;
+    }
+
+    .pricing-card h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    .pricing-card .price {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 300;
+      line-height: 1;
+      margin: 24px 0;
+    }
+
+    .pricing-card .price span {
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    .pricing-card .features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .pricing-card .features .icon {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--blue-bright);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid transparent;
+      border-image: var(--gradient) 1;
+      background: linear-gradient(180deg, rgba(255, 59, 74, 0.06), rgba(0, 149, 255, 0.06));
+      transform: scale(1.02);
+    }
+
+    .pricing-card.featured .badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--gradient);
+      color: #fff;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 6px 12px;
+    }
+
+    /* Steps */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      counter-reset: step;
+    }
+
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px 32px;
+      position: relative;
+      transition: transform .4s, border-color .4s;
+      overflow: hidden;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: '0' counter(step);
+      font-family: var(--font-display);
+      font-size: 80px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.04);
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      line-height: 1;
+    }
+
+    .step:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .step .icon {
+      margin-bottom: 24px;
+    }
+
+    .step h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Rules */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .rule-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+    }
+
+    .rule-panel h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+
+    .rule-panel h3 .dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .rule-panel.do h3 .dot {
+      background: var(--blue-bright);
+    }
+
+    .rule-panel.dont h3 .dot {
+      background: var(--red-bright);
+    }
+
+    .rule-panel li {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .rule-panel li .icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin: 2px 0 0;
+    }
+
+    .rule-panel.do li .icon {
+      color: var(--blue-bright);
+    }
+
+    .rule-panel.dont li .icon {
+      color: var(--red-bright);
+    }
+
+    .note {
+      margin-top: 40px;
+      padding: 24px 32px;
+      border-left: 2px solid var(--red-bright);
+      background: rgba(230, 57, 70, 0.08);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Map */
+    .map-section {
+      padding: 0;
+    }
+
+    .map-wrap {
+      width: 100%;
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      filter: grayscale(0.25) contrast(1.1);
+    }
+
+    .map-info {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 14, 26, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      padding: 16px 28px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .map-info p {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .map-info span {
+      display: block;
+      font-family: var(--font-body);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Contacts */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .contact-card {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .contact-card .icon {
+      width: 40px;
+      height: 40px;
+      color: var(--blue-bright);
+      flex-shrink: 0;
+    }
+
+    .contact-card h4 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .contact-card a, .contact-card p {
+      font-size: 18px;
+      color: var(--text);
+      transition: color .3s;
+    }
+
+    .contact-card a:hover {
+      color: var(--blue-bright);
+    }
+
+    .qr-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .qr {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 16px;
+    }
+
+    .qr-card p {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .qr-card p strong {
+      display: block;
+      color: var(--text);
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .advantages-grid, .pricing-grid, .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 14, 26, 0.96);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 8px 5% 24px;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-120%);
+        transition: transform .4s ease;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+      }
+
+      .nav-links a {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero-title {
+        font-size: 34px;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+
+      .stat-num {
+        font-size: 36px;
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .advantages-grid, .pricing-grid, .steps, .rules-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card.featured {
+        transform: scale(1);
+      }
+
+      .map-wrap {
+        height: 360px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 28px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .pricing-card .price {
+        font-size: 40px;
+      }
+
+      .stat-num {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Sprite -->
+  <svg style='position:absolute;width:0;height:0;overflow:hidden;' xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true'>
+    <defs>
+      <symbol id='icon-target' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <circle cx='12' cy='12' r='9'/>
+        <line x1='12' y1='3' x2='12' y2='21'/>
+        <line x1='3' y1='12' x2='21' y2='12'/>
+        <circle cx='12' cy='12' r='3'/>
+      </symbol>
+
+      <symbol id='icon-speed' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M4 15a8 8 0 1 1 16 0'/>
+        <line x1='12' y1='15' x2='16' y2='9'/>
+        <circle cx='12' cy='15' r='1.5' fill='currentColor' stroke='none'/>
+      </symbol>
+
+      <symbol id='icon-droplets' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M12 2c2 3.5 4 7 4 10a4 4 0 1 1-8 0c0-3 2-6.5 4-10z'/>
+        <path d='M4 17h16M6 21h11' opacity='0.6'/>
+      </symbol>
+
+      <symbol id='icon-clock-check' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <circle cx='12' cy='12' r='9'/>
+        <polyline points='12 7 12 12 16 14'/>
+        <path d='M18 5l2 2'/>
+      </symbol>
+
+      <symbol id='icon-terminal' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <rect x='3' y='5' width='18' height='14' rx='1'/>
+        <line x1='7' y1='9' x2='13' y2='9'/>
+        <line x1='7' y1='12' x2='11' y2='12'/>
+        <rect x='14' y='12' width='5' height='4' rx='1'/>
+      </symbol>
+
+      <symbol id='icon-car-door' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M2 11h20v6H2z'/>
+        <path d='M4 11l3-5h10l3 5'/>
+        <path d='M6 17v3M18 17v3'/>
+        <path d='M22 9l-2 2 2 2'/>
+      </symbol>
+
+      <symbol id='icon-handbrake' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <circle cx='12' cy='12' r='9'/>
+        <text x='12' y='16' font-size='10' text-anchor='middle' fill='currentColor' stroke='none' font-family='sans-serif' font-weight='700'>P</text>
+        <path d='M20 20l2 2'/>
+      </symbol>
+
+      <symbol id='icon-exit' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M9 4h8v16H9'/>
+        <path d='M15 12H3M6 9l-3 3 3 3'/>
+      </symbol>
+
+      <symbol id='icon-check' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <polyline points='20 6 9 17 4 12'/>
+      </symbol>
+
+      <symbol id='icon-cross' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <line x1='18' y1='6' x2='6' y2='18'/>
+        <line x1='6' y1='6' x2='18' y2='18'/>
+      </symbol>
+
+      <symbol id='icon-phone' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M22 16.9V19a2 2 0 0 1-2.1 2 19.8 19.8 0 0 1-8.6-3A19.5 19.5 0 0 1 5 12.2 19.8 19.8 0 0 1 2 4.1 2 2 0 0 1 4 2h2.1a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.1a16 16 0 0 0 6.8 6.8l1.5-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z'/>
+      </symbol>
+
+      <symbol id='icon-map-pin' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M21 10c0 5.2-9 13-9 13S3 15.2 3 10a9 9 0 1 1 18 0z'/>
+        <circle cx='12' cy='10' r='3'/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Navigation -->
+  <nav class='nav' id='nav'>
+    <div class='container'>
+      <a class='logo' href='#hero'>
+        <span class='logo-mark'>
+          <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+            <path d='M2 12h20M6 16h12M8 20h8M4 8h16'/>
+          </svg>
+        </span>
+        AQUA ROBOT
+      </a>
+      <button class='menu-toggle' aria-label='Открыть меню' aria-expanded='false'>
+        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+          <line x1='3' y1='6' x2='21' y2='6'/>
+          <line x1='3' y1='12' x2='21' y2='12'/>
+          <line x1='3' y1='18' x2='21' y2='18'/>
+        </svg>
+      </button>
+      <div class='nav-links'>
+        <a href='#advantages'>Преимущества</a>
+        <a href='#tariffs'>Тарифы</a>
+        <a href='#how-it-works'>Как работает</a>
+        <a href='#rules'>Правила</a>
+        <a href='#contacts'>Контакты</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class='hero' id='hero'>
+    <div class='orb orb-red'></div>
+    <div class='orb orb-blue'></div>
+    <div class='grid-overlay'></div>
+
+    <svg class='hero-fx' viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'>
+      <defs>
+        <linearGradient id='brushGrad' x1='0%' y1='0%' x2='100%' y2='0%'>
+          <stop offset='0%' stop-color='#ff3b4a'/>
+          <stop offset='100%' stop-color='#0095ff'/>
+        </linearGradient>
+      </defs>
+      <rect class='brush' x='8' y='0' width='3' height='100' style='animation-delay: 0s'/>
+      <rect class='brush' x='28' y='0' width='2.5' height='100' style='animation-delay: -1s'/>
+      <rect class='brush' x='48' y='0' width='4' height='100' style='animation-delay: -2s'/>
+      <rect class='brush' x='68' y='0' width='2.5' height='100' style='animation-delay: -3s'/>
+      <rect class='brush' x='88' y='0' width='3' height='100' style='animation-delay: -0.5s'/>
+      <circle class='bubble' cx='15' cy='110' r='0.8' style='animation-duration: 7s; animation-delay: 0s'/>
+      <circle class='bubble' cx='35' cy='110' r='0.6' style='animation-duration: 9s; animation-delay: -2s'/>
+      <circle class='bubble' cx='55' cy='110' r='1' style='animation-duration: 8s; animation-delay: -4s'/>
+      <circle class='bubble' cx='75' cy='110' r='0.7' style='animation-duration: 10s; animation-delay: -1s'/>
+      <circle class='bubble' cx='90' cy='110' r='0.5' style='animation-duration: 7.5s; animation-delay: -3s'/>
+    </svg>
+
+    <div class='container hero-content'>
+      <p class='eyebrow reveal'>Роботизированная автомойка в Перми</p>
+      <h1 class='hero-title reveal'>Роботизированная автомойка — <span class='accent'>быстрая</span>, технологичная и качественная мойка для вашего автомобиля</h1>
+      <p class='hero-subtitle reveal'>Современное роботизированное оборудование. Безупречный результат за несколько минут. г. Пермь, ул. Революции, 13</p>
+      <div class='hero-actions reveal'>
+        <a href='#tariffs' class='btn btn-primary'><span>Выбрать программу</span></a>
+        <a href='#contacts' class='btn btn-ghost'>Связаться</a>
+      </div>
+      <div class='hero-stats reveal'>
+        <div class='stat'>
+          <span class='stat-num' data-target='4'>0</span>
+          <span class='stat-label'>программы</span>
+        </div>
+        <div class='stat'>
+          <span class='stat-num' data-target='5'>0</span>
+          <span class='stat-label'>минут мойка</span>
+        </div>
+        <div class='stat'>
+          <span class='stat-num' data-target='24'>0</span>
+          <span class='stat-label'>часа в сутки</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Advantages -->
+  <section class='section' id='advantages'>
+    <div class='container'>
+      <div class='section-header reveal'>
+        <p class='section-eyebrow'>Почему робот-мойка</p>
+        <h2 class='section-title'>Технология, которая <span>заботится</span> об авто</h2>
+      </div>
+      <div class='advantages-grid'>
+        <article class='card advantage-card reveal'>
+          <svg class='icon'><use href='#icon-target' xlink:href='#icon-target'/></svg>
+          <h3>Роботизированная точность</h3>
+          <p>Без человеческого фактора. Каждый автомобиль проходит по точной программе с идеальным и предсказуемым результатом.</p>
+        </article>
+        <article class='card advantage-card reveal'>
+          <svg class='icon'><use href='#icon-speed' xlink:href='#icon-speed'/></svg>
+          <h3>Скорость</h3>
+          <p>Мойка за минуты, а не часы. Экономьте время и возвращайтесь к делам с чистым автомобилем.</p>
+        </article>
+        <article class='card advantage-card reveal'>
+          <svg class='icon'><use href='#icon-droplets' xlink:href='#icon-droplets'/></svg>
+          <h3>Технологичные программы</h3>
+          <p>Осмос, активная химия и мощный обдув — комплексный уход за лакокрасочным покрытием и дисками.</p>
+        </article>
+        <article class='card advantage-card reveal'>
+          <svg class='icon'><use href='#icon-clock-check' xlink:href='#icon-clock-check'/></svg>
+          <h3>Работаем 24/7</h3>
+          <p>Без выходных и очередей. Мойка доступна в любое время суток, когда вам удобно.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class='section' id='tariffs'>
+    <div class='container'>
+      <div class='section-header reveal'>
+        <p class='section-eyebrow'>Программы мойки</p>
+        <h2 class='section-title'>Выберите <span>подходящий</span> тариф</h2>
+      </div>
+      <div class='pricing-grid'>
+        <article class='card pricing-card reveal'>
+          <h3>Экспресс</h3>
+          <div class='price'>500 <span>₽</span></div>
+          <ul class='features'>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>активная химия</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>ополаскивание</li>
+          </ul>
+        </article>
+        <article class='card pricing-card reveal'>
+          <h3>Стандарт</h3>
+          <div class='price'>650 <span>₽</span></div>
+          <ul class='features'>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>активная химия</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>мойка дисков</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>активная пена</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>ополаскивание</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>осмос</li>
+          </ul>
+        </article>
+        <article class='card pricing-card reveal'>
+          <h3>Стандарт плюс</h3>
+          <div class='price'>800 <span>₽</span></div>
+          <ul class='features'>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>активная химия</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>ополаскивание</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>активная пена</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>ополаскивание</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>воск</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>осмос</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>обдув</li>
+          </ul>
+        </article>
+        <article class='card pricing-card featured reveal'>
+          <span class='badge'>Рекомендуем</span>
+          <h3>Премиум</h3>
+          <div class='price'>1000 <span>₽</span></div>
+          <ul class='features'>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>мойка днища</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>активная химия</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>мойка дисков</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>ополаскивание</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>активная пена</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>ополаскивание</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>воск</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>осмос</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>обдув ×2</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class='section' id='how-it-works'>
+    <div class='container'>
+      <div class='section-header reveal'>
+        <p class='section-eyebrow'>Процесс</p>
+        <h2 class='section-title'>Как это <span>работает</span></h2>
+      </div>
+      <div class='steps'>
+        <article class='step reveal'>
+          <svg class='icon'><use href='#icon-terminal' xlink:href='#icon-terminal'/></svg>
+          <h3>Оплата</h3>
+          <p>Выберите и оплатите программу в терминале</p>
+        </article>
+        <article class='step reveal'>
+          <svg class='icon'><use href='#icon-car-door' xlink:href='#icon-car-door'/></svg>
+          <h3>Подготовка и въезд</h3>
+          <p>Закройте двери, окна и люк. Двигайтесь вперёд на 3 км/ч при сигнале</p>
+        </article>
+        <article class='step reveal'>
+          <svg class='icon'><use href='#icon-handbrake' xlink:href='#icon-handbrake'/></svg>
+          <h3>Остановка</h3>
+          <p>Остановитесь при сигнале «крестик», поставьте на ручник, заглушите двигатель</p>
+        </article>
+        <article class='step reveal'>
+          <svg class='icon'><use href='#icon-exit' xlink:href='#icon-exit'/></svg>
+          <h3>Завершение</h3>
+          <p>Выезжайте после сигнала «вперёд» и завершения программы</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules -->
+  <section class='section' id='rules'>
+    <div class='container'>
+      <div class='section-header reveal'>
+        <p class='section-eyebrow'>Безопасность</p>
+        <h2 class='section-title'>Правила <span>пользования</span> комплексом</h2>
+      </div>
+      <div class='rules-grid reveal'>
+        <div class='rule-panel do'>
+          <h3><span class='dot'></span>Что нужно делать</h3>
+          <ul>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>Выберите и оплатите программу в терминале</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>Закройте двери, окна и люк</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>Двигайтесь вперёд со скоростью 3 км/ч при появлении соответствующего сигнала</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>Остановитесь при появлении сигнала «крестик»</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>Поставьте автомобиль на ручной тормоз и заглушите двигатель</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>Не покидайте автомобиль во время мойки</li>
+            <li><svg class='icon'><use href='#icon-check' xlink:href='#icon-check'/></svg>Выезжайте после завершения программы и появления сигнала «вперёд»</li>
+          </ul>
+        </div>
+        <div class='rule-panel dont'>
+          <h3><span class='dot'></span>Запрещается</h3>
+          <ul>
+            <li><svg class='icon'><use href='#icon-cross' xlink:href='#icon-cross'/></svg>Покидать автомобиль во время работы оборудования</li>
+            <li><svg class='icon'><use href='#icon-cross' xlink:href='#icon-cross'/></svg>Въезд автомобиля, превышающего габариты: длина 7 м 10 см, ширина 2 м 10 см, высота 2 м 5 см</li>
+            <li><svg class='icon'><use href='#icon-cross' xlink:href='#icon-cross'/></svg>Открывать двери, окна и люк во время работы оборудования</li>
+            <li><svg class='icon'><use href='#icon-cross' xlink:href='#icon-cross'/></svg>Ожидать выполнения программы с работающим двигателем</li>
+            <li><svg class='icon'><use href='#icon-cross' xlink:href='#icon-cross'/></svg>Наносить ущерб комплексу</li>
+            <li><svg class='icon'><use href='#icon-cross' xlink:href='#icon-cross'/></svg>Парковка после окончания мойки</li>
+          </ul>
+        </div>
+      </div>
+      <div class='note reveal'>
+        <strong>Важное примечание:</strong> Мойка-робот не удаляет статическую грязь, она убирается только механическим способом.
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class='section map-section' id='map'>
+    <div class='map-wrap'>
+      <iframe src='https://yandex.ru/map-widget/v1/?ll=56.229%2C58.010&amp;z=16&amp;pt=58.010,56.229,pm2rdm' allowfullscreen loading='lazy' title='Яндекс Карта — Роботизированная автомойка, Пермь, ул. Революции, 13'></iframe>
+      <div class='map-info'>
+        <p>г. Пермь, ул. Революции, 13</p>
+        <span>Работаем круглосуточно</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacts -->
+  <section class='section' id='contacts'>
+    <div class='container'>
+      <div class='section-header reveal'>
+        <p class='section-eyebrow'>Контакты</p>
+        <h2 class='section-title'>Свяжитесь <span>с нами</span></h2>
+      </div>
+      <div class='contacts-grid reveal'>
+        <div class='contact-info'>
+          <div class='contact-card'>
+            <svg class='icon'><use href='#icon-phone' xlink:href='#icon-phone'/></svg>
+            <div>
+              <h4>Телефон администратора</h4>
+              <a href='tel:+79822468130'>8-982-246-81-30</a>
+            </div>
+          </div>
+          <div class='contact-card'>
+            <svg class='icon'><use href='#icon-map-pin' xlink:href='#icon-map-pin'/></svg>
+            <div>
+              <h4>Адрес</h4>
+              <p>г. Пермь, ул. Революции, 13</p>
+            </div>
+          </div>
+        </div>
+        <div class='qr-card'>
+          <svg class='qr' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'>
+            <rect width='120' height='120' fill='#f0f0fa'/>
+            <g fill='#0a0e1a'>
+              <rect x='8' y='8' width='28' height='28'/>
+              <rect x='14' y='14' width='16' height='16' fill='#f0f0fa'/>
+              <rect x='18' y='18' width='8' height='8'/>
+              <rect x='84' y='8' width='28' height='28'/>
+              <rect x='90' y='14' width='16' height='16' fill='#f0f0fa'/>
+              <rect x='94' y='18' width='8' height='8'/>
+              <rect x='8' y='84' width='28' height='28'/>
+              <rect x='14' y='90' width='16' height='16' fill='#f0f0fa'/>
+              <rect x='18' y='94' width='8' height='8'/>
+              <rect x='44' y='8' width='8' height='8'/>
+              <rect x='56' y='8' width='8' height='8'/>
+              <rect x='44' y='20' width='8' height='8'/>
+              <rect x='68' y='20' width='8' height='8'/>
+              <rect x='44' y='44' width='8' height='8'/>
+              <rect x='56' y='56' width='8' height='8'/>
+              <rect x='68' y='44' width='8' height='8'/>
+              <rect x='84' y='44' width='8' height='8'/>
+              <rect x='96' y='56' width='8' height='8'/>
+              <rect x='8' y='56' width='8' height='8'/>
+              <rect x='20' y='68' width='8' height='8'/>
+              <rect x='44' y='68' width='8' height='8'/>
+              <rect x='56' y='80' width='8' height='8'/>
+              <rect x='68' y='68' width='8' height='8'/>
+              <rect x='84' y='68' width='8' height='8'/>
+              <rect x='96' y='80' width='8' height='8'/>
+              <rect x='44' y='96' width='8' height='8'/>
+              <rect x='68' y='96' width='8' height='8'/>
+              <rect x='96' y='96' width='8' height='8'/>
+            </g>
+          </svg>
+          <p><strong>Будем рады отзывам</strong>на сервисе Яндекс</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class='footer'>
+    <div class='container'>
+      <p>© 2026 AQUA ROBOT — роботизированная автомойка в Перми</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const nav = document.querySelector('.nav');
+      const toggle = document.querySelector('.menu-toggle');
+      const links = document.querySelector('.nav-links');
+      const heroFx = document.querySelector('.hero-fx');
+      const orbs = document.querySelectorAll('.orb');
+
+      function updateParallax() {
+        const y = window.scrollY;
+        if (heroFx) heroFx.style.transform = 'translateY(' + (y * 0.15) + 'px)';
+        orbs.forEach(function (orb, i) {
+          orb.style.transform = 'translateY(' + (y * (0.05 + i * 0.03)) + 'px)';
+        });
+      }
+
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 60) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+        requestAnimationFrame(updateParallax);
+      });
+
+      if (toggle && links) {
+        toggle.addEventListener('click', function () {
+          links.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', links.classList.contains('open'));
+        });
+        links.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () {
+            links.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          const href = a.getAttribute('href');
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            const y = target.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        });
+      });
+
+      const reveals = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(function (el) { revealObserver.observe(el); });
+
+      const counters = document.querySelectorAll('.stat-num');
+      function animateCounter(el) {
+        const target = parseInt(el.dataset.target, 10);
+        const duration = 2000;
+        let start = null;
+        function step(t) {
+          if (!start) start = t;
+          const p = Math.min((t - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.floor(eased * target);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      const countObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            countObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(function (c) { countObserver.observe(c); });
+    })();
+  </script>
+</body>
+</html>
